@@ -1,3 +1,9 @@
+#############################################################
+## Data downloaded and processed from Social Security website
+## User should do this to ensure it is up to date
+#############################################################
+data/
+
 #################
 ## Eclipse
 #################
