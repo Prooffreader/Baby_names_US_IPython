@@ -12,8 +12,9 @@
 
 # <markdowncell>
 
-# ## Notebook 1: Download data and create pandas dataframes ##
+# ## Download data and create pandas dataframes ##
 # 
+# * A .py version of this script is %run in other notebooks to load primary dataframes
 # * Last cell contains descriptions of dataframe schemas
 # * Script is smart enough not to download or perform lengthy procedures if the files already exist
 
@@ -201,14 +202,17 @@ os.chdir("../")
 
 # <codecell>
 
+print "Tail of dataframe 'yob':"
 print yob.tail()
 
 # <codecell>
 
+print "\nTail of dataframe 'names':"
 print names.tail()
 
 # <codecell>
 
+print "\nTail of dataframe 'years':"
 print years.tail()
 
 # <codecell>

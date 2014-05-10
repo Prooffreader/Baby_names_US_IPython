@@ -1,8 +1,10 @@
 #############################################################
 ## Data downloaded and processed from Social Security website
-## User should do this to ensure it is up to date
+## User should do this to ensure integrity of data
 #############################################################
 data/
+last_letters_M/
+last_letters_F/
 
 #################
 ## Eclipse
