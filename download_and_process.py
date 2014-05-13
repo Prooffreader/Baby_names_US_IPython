@@ -46,6 +46,7 @@ if not os.path.isfile("names.zip"):
     print "Downloading."
     import urllib
     urllib.urlretrieve(ssa_url, 'names.zip')
+else: print "Data already downloaded."
 
 if not os.path.isfile("yob1880.txt") or not os.path.isfile("yob2013.txt"):
     print "Extracting."
@@ -53,7 +54,8 @@ if not os.path.isfile("yob1880.txt") or not os.path.isfile("yob2013.txt"):
     with zipfile.ZipFile('names.zip') as zf:
         for member in zf.infolist():
             zf.extract(member)
-            
+else: print "Data already extracted."
+
 os.chdir("../")
 
 # <rawcell>
@@ -152,15 +154,20 @@ else:
     
 os.chdir("../")
 
-# <rawcell>
+# <markdowncell>
 
-# Dataframe schemas:
+# ### Dataframe schemas: ###
+# 
 # Note dataframes have only an arbitrary ordinal index. Indexes and multi-indexes are added later where needed.
+# 
 # -----------------
 # 
 # yob = a dataframe with each record comprising a unique name, sex and year.
+# 
 # Length: approx. 1.76 million records; pickle = ~100 MB
+# 
 # Columns are:
+# 
 #     name     String
 #     sex      M or F
 #     births   Number of birth with that name of that sex during that year;
@@ -172,8 +179,11 @@ os.chdir("../")
 # -----------------
 # 
 # names = a dataframe with each record comprising a unique name and sex, with data for individual years discarded but summary and additional data added.
+# 
 # Length: approx. 101,000 records; pickle = ~ 7 MB
+# 
 # Columns are:
+# 
 #     name              Same as in df
 #     sex               Same as in df
 #     year_count        Number of different years in which that name appears in dataframe, from 1 to 133.
@@ -187,8 +197,11 @@ os.chdir("../")
 # ------------------
 # 
 # years = a dataframe with each record comprising a unique year, with individual name data discarded but summary and additional data added.
+# 
 # Length: 133 records; pickle = ~ 8 kB
+# 
 # Columns are:
+# 
 #     year              Same as in df
 #     births_f          Number of female births during that year
 #     births_m          Number of male births during that year
@@ -198,7 +211,7 @@ os.chdir("../")
 
 # <rawcell>
 
-# Tails of all three dataframes:
+# Print tails of all three dataframes:
 
 # <codecell>
 
