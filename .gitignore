@@ -3,6 +3,9 @@
 ## User should do this to ensure integrity of data
 #############################################################
 data/
+user*.*
+ignore*.*
+temp*.*
 last_letters_M/
 last_letters_F/
 eraseme*.*
