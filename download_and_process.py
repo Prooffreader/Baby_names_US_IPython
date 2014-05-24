@@ -7,8 +7,6 @@
 # 
 #   * By David Taylor, [www.prooffreader.com](http://www.prooffreader.com)
 #   * using data from United States Social Security Administration
-#   * I am making this public in case it gives a head start to those who want to explore this dataset, so they don't have to download and format the data and the python objects used to do preliminary analysis. Please let me know if you find this helpful!
-#   * I'm relatively new to Python; often my code is non-pythonic and I tend to use inefficient list iterations that are easy for me to code instead of comprehensions or Boolean indexing that would result in faster processing. Also, everything right now is in IPython notebooks instead of .py with classes, double underscores, etc., because it's more convenient for my workflow in data spelunking. Your mileage may vary, and constructive criticism is very welcome.
 
 # <markdowncell>
 
@@ -24,7 +22,7 @@
 
 # <codecell>
 
-data_path = "data" 
+data_path = "user_data" 
 
 import os
 if not os.path.isdir(data_path): # creates path if it does not exist
@@ -156,17 +154,14 @@ os.chdir("../")
 
 # <markdowncell>
 
-# ### Dataframe schemas: ###
+# #### Dataframe schemas: ####
 # 
 # Note dataframes have only an arbitrary ordinal index. Indexes and multi-indexes are added later where needed.
 # 
 # -----------------
 # 
 # yob = a dataframe with each record comprising a unique name, sex and year.
-# 
 # Length: approx. 1.76 million records; pickle = ~100 MB
-# 
-# Columns are:
 # 
 #     name     String
 #     sex      M or F
@@ -179,10 +174,7 @@ os.chdir("../")
 # -----------------
 # 
 # names = a dataframe with each record comprising a unique name and sex, with data for individual years discarded but summary and additional data added.
-# 
 # Length: approx. 101,000 records; pickle = ~ 7 MB
-# 
-# Columns are:
 # 
 #     name              Same as in df
 #     sex               Same as in df
@@ -197,10 +189,7 @@ os.chdir("../")
 # ------------------
 # 
 # years = a dataframe with each record comprising a unique year, with individual name data discarded but summary and additional data added.
-# 
 # Length: 133 records; pickle = ~ 8 kB
-# 
-# Columns are:
 # 
 #     year              Same as in df
 #     births_f          Number of female births during that year
@@ -211,7 +200,7 @@ os.chdir("../")
 
 # <rawcell>
 
-# Print tails of all three dataframes:
+# Tails of all three dataframes:
 
 # <codecell>
 
