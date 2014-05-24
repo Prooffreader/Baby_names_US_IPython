@@ -228,3 +228,7 @@ pip-log.txt
 *.pickle
 *.txt
 *.png
+*.zip
+*.pdf
+ignore-origins/names_with_origins.csv
+user_last_letters_M/analyze.ipynb
