@@ -9,6 +9,7 @@ temp*.*
 last_letters_M/
 last_letters_F/
 eraseme*.*
+ignore/*.*
 
 #################
 ## Eclipse
