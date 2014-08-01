@@ -1,14 +1,9 @@
-# -*- coding: utf-8 -*-
-# <nbformat>3.0</nbformat>
-
-# <markdowncell>
+# coding: utf-8
 
 # ### U.S. Baby names iPython notebooks #
 # 
 #   * By David Taylor, [www.prooffreader.com](http://www.prooffreader.com)
 #   * using data from United States Social Security Administration
-
-# <markdowncell>
 
 # ## Download data and create pandas dataframes ##
 # 
@@ -16,11 +11,7 @@
 # * Last cell contains descriptions of dataframe schemas
 # * Script is smart enough not to download or perform lengthy procedures if the files already exist
 
-# <rawcell>
-
-# Set working path and import libraries
-
-# <codecell>
+##### Set working path and import libraries
 
 data_path = "user_data" 
 
@@ -30,11 +21,7 @@ if not os.path.isdir(data_path): # creates path if it does not exist
 
 import pandas as pd
 
-# <rawcell>
-
-# Download files from Social Security website unless files already exist in working_path
-
-# <codecell>
+##### Download files from Social Security website unless files already exist in working_path
 
 os.chdir(data_path)
 
@@ -56,17 +43,13 @@ else: print "Data already extracted."
 
 os.chdir("../")
 
-# <rawcell>
+##### Create pandas dataframes from U.S. Social Security baby names database and pickle for later use in other notebooks  This block takes well under a minute on my medium-quality desktop Windows PC.
 
-# Create pandas dataframes from U.S. Social Security baby names database and pickle for later use in other notebooks
-# 
-# This block takes well under a minute on my medium-quality desktop Windows PC.
-
-# <codecell>
-
+redo_dataframes = True
 os.chdir(data_path)
 
-if (not os.path.isfile("yob.pickle") or 
+if (redo_dataframes == True or
+    not os.path.isfile("yob.pickle") or 
     not os.path.isfile("names.pickle") or 
     not os.path.isfile("years.pickle")):
 
@@ -99,11 +82,16 @@ if (not os.path.isfile("yob.pickle") or
     # There is one row per unique combination of name and sex.
     yobf = yob[yob.sex == 'F']
     yobm = yob[yob.sex == 'M']
-    names_count = pd.DataFrame(data=yobf['name'].value_counts(), columns=['year_count'])
-    names_min = pd.DataFrame(data=yobf.groupby('name').year.min(), columns = ['year_min'])
-    names_max = pd.DataFrame(data=yobf.groupby('name').year.max(), columns = ['year_max'])
-    names_pctsum = pd.DataFrame(data=yobf.groupby('name').pct.sum(), columns = ['pct_sum'])
-    names_pctmax = pd.DataFrame(data=yobf.groupby('name').pct.max(), columns = ['pct_max'])
+    names_count = pd.DataFrame(yobf['name'].value_counts())
+    names_count.columns= ['year_count']
+    names_min = pd.DataFrame(yobf.groupby('name').year.min()) 
+    names_min.columns = ['year_min']
+    names_max = pd.DataFrame(yobf.groupby('name').year.max()) 
+    names_max.columns = ['year_max']
+    names_pctsum = pd.DataFrame(yobf.groupby('name').pct.sum()) 
+    names_pctsum.columns = ['pct_sum']
+    names_pctmax = pd.DataFrame(yobf.groupby('name').pct.max())
+    names_pctmax.columns = ['pct_max']
     names_f = names_count.join(names_min)
     names_f = names_f.join(names_max)
     names_f = names_f.join(names_pctsum)
@@ -112,11 +100,16 @@ if (not os.path.isfile("yob.pickle") or
     names_f.reset_index(inplace=True, drop=False)
     names_f.columns = ['name', 'year_count', 'year_min', 'year_max', 'pct_sum', 'pct_max', 'sex']
     names_f = names_f[['name', 'sex', 'year_count', 'year_min', 'year_max', 'pct_sum', 'pct_max']]
-    names_count = pd.DataFrame(data=yobm['name'].value_counts(), columns=['year_count'])
-    names_min = pd.DataFrame(data=yobm.groupby('name').year.min(), columns = ['year_min'])
-    names_max = pd.DataFrame(data=yobm.groupby('name').year.max(), columns = ['year_max'])
-    names_pctsum = pd.DataFrame(data=yobm.groupby('name').pct.sum(), columns = ['pct_sum'])
-    names_pctmax = pd.DataFrame(data=yobm.groupby('name').pct.max(), columns = ['pct_max'])
+    names_count = pd.DataFrame(yobm['name'].value_counts()) 
+    names_count.columns=['year_count']
+    names_min = pd.DataFrame(yobm.groupby('name').year.min()) 
+    names_min.columns = ['year_min']
+    names_max = pd.DataFrame(yobm.groupby('name').year.max()) 
+    names_max.columns = ['year_max']
+    names_pctsum = pd.DataFrame(yobm.groupby('name').pct.sum()) 
+    names_pctsum.columns = ['pct_sum']
+    names_pctmax = pd.DataFrame(yobm.groupby('name').pct.max()) 
+    names_pctmax.columns = ['pct_max']
     names_m = names_count.join(names_min)
     names_m = names_m.join(names_max)
     names_m = names_m.join(names_pctsum)
@@ -129,18 +122,20 @@ if (not os.path.isfile("yob.pickle") or
     names.to_pickle('names.pickle')
     
     # create years dataframe. Discards individual name data, aggregating by year.
-    total = pd.DataFrame(yob.pivot_table('births', rows='year', cols = 'sex', aggfunc=sum))
+    total = pd.DataFrame(yob.pivot_table('births', index='year', columns = 'sex', aggfunc=sum))
     total.reset_index(drop=False, inplace=True)
     total.columns = ['year', 'births_f', 'births_m']
     total['births_t'] = total.births_f + total.births_m
-    newnames = pd.DataFrame(data=names.groupby('year_min').year_min.count(), columns = ['firstyearcount'])
+    newnames = pd.DataFrame(names.groupby('year_min').year_min.count())
+    newnames.columns = ['firstyearcount']
     newnames.reset_index(drop=False, inplace=True)
     newnames.columns = ['year', 'new_names']
-    uniquenames = pd.DataFrame(columns=['year', 'unique_names'])
+    uniquenames = pd.DataFrame()
     for yr in range(1880, 2013):
-        uniquenames = uniquenames.append(pd.DataFrame([{'year':yr, 'unique_names':len(unique(yob[yob.year == yr].name))}]), ignore_index=True)
+        uniquenames = uniquenames.append(pd.DataFrame([{'year':yr, 'unique_names':len(yob[yob.year == yr].name.unique())}]), ignore_index=True)
     years = pd.merge(left=total, right=newnames, on='year', right_index=False, left_index=False)
     years = pd.merge(left=years, right=uniquenames, on='year', right_index=False, left_index=False)
+    years['sexratio'] = 100.0 * years.births_m / years.births_f
     years.to_pickle('years.pickle')
     
 else:
@@ -151,8 +146,6 @@ else:
     years = pd.read_pickle('years.pickle')
     
 os.chdir("../")
-
-# <markdowncell>
 
 # #### Dataframe schemas: ####
 # 
@@ -184,7 +177,7 @@ os.chdir("../")
 #     pct_sum           Sum of pct field for that name for all years. Not a statistically meaningful number
 #                       (because the underlying distribution of names varies from year to year),
 #                       but I have found it a useful rough metric during development
-#     pct_max           Maxmimum value in pct field for all years, indicating the most popular that name has ever been in the database.
+#     pct_max           Maximum value in pct field for all years, indicating the most popular that name has ever been in the database.
 # 
 # ------------------
 # 
@@ -197,26 +190,17 @@ os.chdir("../")
 #     births_t          Total number of births during that year
 #     new_names         Number of names that appear for the first time during that year
 #     unique_names      Number of different names that appear during that year
+#     sexratio          Number of boys born per hundred girls
+# 
 
-# <rawcell>
-
-# Tails of all three dataframes:
-
-# <codecell>
+##### Tails of all three dataframes:
 
 print "Tail of dataframe 'yob':"
 print yob.tail()
 
-# <codecell>
-
 print "\nTail of dataframe 'names':"
 print names.tail()
 
-# <codecell>
-
 print "\nTail of dataframe 'years':"
 print years.tail()
-
-# <codecell>
-
 
