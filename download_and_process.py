@@ -45,7 +45,7 @@ os.chdir("../")
 
 ##### Create pandas dataframes from U.S. Social Security baby names database and pickle for later use in other notebooks  This block takes well under a minute on my medium-quality desktop Windows PC.
 
-redo_dataframes = True
+redo_dataframes = False
 os.chdir(data_path)
 
 if (redo_dataframes == True or
