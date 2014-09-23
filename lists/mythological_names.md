@@ -7,8 +7,8 @@
 | Roman    | Apollo                   | Yes                  | Yes                     | Yes                                   |
 | Greek    | Ares                     | Yes                  | Yes                     | Yes                                   |
 | Greek    | Artemis                  | Yes                  | Yes                     | Yes                                   |
+| Greek    | Athena                   | Yes                  | Yes                     | Yes                                   |
 | Greek    | Clio                     | Yes                  | Yes                     | Yes                                   |
-| Greek    | Eris                     | Yes                  | Yes                     | Yes                                   |
 | Roman    | Hercules                 | Yes                  | Yes                     | Yes                                   |
 | Greek    | Hermes                   | Yes                  | Yes                     | Yes                                   |
 | Egyptian | Isis                     | Yes                  | Yes                     | Yes                                   |
@@ -32,6 +32,7 @@
 | Roman    | Ceres                    | Yes                  | Yes                     | No                                    |
 | Greek    | Chimera                  | Yes                  | Yes                     | No                                    |
 | Greek    | Cybele                   | Yes                  | Yes                     | No                                    |
+| Greek    | Eris                     | Yes                  | Yes                     | No                                    |
 | Norse    | Fenris                   | Yes                  | Yes                     | No                                    |
 | Norse    | Freyja                   | Yes                  | Yes                     | No                                    |
 | Greek    | Gaia                     | Yes                  | Yes                     | No                                    |

@@ -205,7 +205,7 @@ os.chdir("../")
 
 ##### Make versions from 1940 on:
 
-# In[5]:
+# In[4]:
 
 os.chdir(data_path)
 
@@ -287,20 +287,46 @@ os.chdir("../")
 
 ##### Tails of all three dataframes:
 
-# In[8]:
+# In[5]:
 
 print "Tail of dataframe 'yob':"
 print yob.tail()
 
 
-# In[9]:
+# In[6]:
 
 print "\nTail of dataframe 'names':"
 print names.tail()
 
 
-# In[12]:
+# In[7]:
 
 print "\nTail of dataframe 'years':"
 print years.tail()
+
+
+# In[8]:
+
+print "Tail of dataframe 'yob1940':"
+print yob1940.tail()
+
+
+# In[9]:
+
+print "Tail of dataframe 'names1940':"
+print names1940.tail()
+
+
+# In[11]:
+
+years1940 = years1940[['year', 'births_f', 'births_m', 'births_t', 'new_names', 'unique_names_x', 'sexratio']]
+years1940.columns = ['year', 'births_f', 'births_m', 'births_t', 'new_names', 'unique_names', 'sexratio']
+# above lines correct outer merge problem
+print "Tail of dataframe 'years1940':"
+print years1940.tail()
+
+
+# In[ ]:
+
+
 
