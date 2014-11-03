@@ -52,7 +52,7 @@ os.chdir("../")
 
 ##### Create pandas dataframes from U.S. Social Security baby names database and pickle for later use in other notebooks  This block takes well under a minute on my medium-quality desktop Windows PC.
 
-# In[3]:
+# In[2]:
 
 redo_dataframes = False
 os.chdir(data_path)
@@ -299,7 +299,7 @@ print "\nTail of dataframe 'names':"
 print names.tail()
 
 
-# In[7]:
+# In[3]:
 
 print "\nTail of dataframe 'years':"
 print years.tail()
